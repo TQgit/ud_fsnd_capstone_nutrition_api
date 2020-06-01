@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
 database_path = os.environ['DATABASE_URL']
+test_database_path = os.environ['TEST_DATABASE_URL']
 
 db = SQLAlchemy()
 
@@ -19,6 +20,14 @@ def setup_db(app, database_path=database_path):
     db.init_app(app)
 
     migrate = Migrate(app, db)
+
+
+def setup_test_db(app, database_path=test_database_path):
+    app.config["SQLALCHEMY_DATABASE_URI"] = database_path
+    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    db.app = app
+    db.init_app(app)
+    db.create_all()
 
 
 class Restaurant(db.Model):
