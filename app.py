@@ -226,6 +226,46 @@ def create_app(test_config=None):
             "message": AuthError.error['description']
         }), AuthError.status_code
 
+    # Uncomment this endpoint for a quick way to add dummy data to the db
+    '''
+    @app.route('/populate-db')
+    def populate_db():
+        names = ['KFC', 'Five Guys', 'Starbucks', 'Chipotle']
+        cuisines = ['Fast Food', 'Burgers', 'Cafe', 'Mexican']
+        restaurants = []
+
+        for i in range(len(names)):
+            restaurants.append(Restaurant(name=names[i], cuisine=cuisines[i]))
+
+        [resto.insert() for resto in restaurants]
+
+        first_resto_id = restaurants[0].id
+        order_names = ['Spicy Zinger', 'Cheeseburger', 'Caramel Macchiato',
+                       'Burrito']
+        calories = [480, 840, 240, 1000]
+        fats = [19, 55, 7, 39]
+        cholesterols = [110, 165, 25, 195]
+        sodiums = [900, 1050, 130, 1855]
+        carbs = [48, 40, 34, 104]
+        proteins = [28, 47, 10, 60]
+        orders = []
+
+        for i in range(len(order_names)):
+            orders.append(Order(restaurant_id=first_resto_id + i,
+                                name=order_names[i], calories=calories[i],
+                                total_fat=fats[i], sodium=sodiums[i],
+                                cholesterol=cholesterols[i],
+                                total_carbs=carbs[i], protein=proteins[i]))
+
+        [order.insert() for order in orders]
+
+        return jsonify(
+            {
+                'success': True,
+                'restaurants': [resto.format() for resto in restaurants]
+            })
+    '''
+
     return app
 
 

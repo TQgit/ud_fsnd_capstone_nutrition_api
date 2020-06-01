@@ -1,5 +1,6 @@
 import os
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 
 database_path = os.environ['DATABASE_URL']
 
@@ -16,6 +17,8 @@ def setup_db(app, database_path=database_path):
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.app = app
     db.init_app(app)
+
+    migrate = Migrate(app, db)
 
 
 class Restaurant(db.Model):
@@ -34,16 +37,13 @@ class Restaurant(db.Model):
     def insert(self):
         db.session.add(self)
         db.session.commit()
-        db.session.close()
 
     def update(self):
         db.session.commit()
-        db.session.close()
 
     def delete(self):
         db.session.delete(self)
         db.session.commit()
-        db.session.close()
 
     def format(self):
         return {
@@ -81,16 +81,13 @@ class Order(db.Model):
     def insert(self):
         db.session.add(self)
         db.session.commit()
-        db.session.close()
 
     def update(self):
         db.session.commit()
-        db.session.close()
 
     def delete(self):
         db.session.delete(self)
         db.session.commit()
-        db.session.close()
 
     def format(self):
         return {
