@@ -21,7 +21,10 @@ def create_app(test_config=None):
     @app.route('/')
     def index():
         return render_template('index.html', login_url=os.environ['LOGIN_URL'],
-                               github_url=os.environ['GITHUB_URL'])
+                               github_url=os.environ['GITHUB_URL'],
+                               restaurants=Restaurant.query.all(),
+                               orders=Order.query.order_by(
+                                   Order.restaurant_id).all())
 
     @app.route('/restaurants')
     @requires_auth('get:restaurants')

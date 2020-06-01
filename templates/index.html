@@ -3,6 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>Nutrition Capstone</title>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 75%;
+            margin: 10px auto auto;
+            max-height: 250px;
+            overflow: scroll;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: azure;
+        }
+    </style>
 </head>
 <body>
 <h1 style="text-align: center">Nutrition Facts Database & API</h1>
@@ -17,6 +37,48 @@
     use the API you must first create an account, you may
     <a href={{ login_url }} target="_blank">Login/Register Here.</a>
 </h3>
+
+<h2 style="width: 75%; margin: 30px auto auto">Restaurants</h2>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Restaurant Name</th>
+        <th>Cuisine</th>
+    </tr>
+    {% for resto in restaurants %}
+        <tr>
+            <td>{{ resto.id }}</td>
+            <td>{{ resto.name }}</td>
+            <td>{{ resto.cuisine }}</td>
+        </tr>
+    {% endfor %}
+</table>
+
+<h2 style="width: 75%; margin: 30px auto auto;">Orders</h2>
+<table>
+    <tr>
+        <th>Order Name</th>
+        <th>Calories</th>
+        <th>Total Fat</th>
+        <th>Cholesterol</th>
+        <th>Sodium</th>
+        <th>Total Carbs</th>
+        <th>Protein</th>
+        <th>Restaurant ID</th>
+    </tr>
+    {% for order in orders %}
+        <tr>
+            <td>{{ order.name }}</td>
+            <td>{{ order.calories|string }}</td>
+            <td>{{ order.total_fat|string + "g" }}</td>
+            <td>{{ order.cholesterol|string + "mg" }}</td>
+            <td>{{ order.sodium|string + "mg" }}</td>
+            <td>{{ order.total_carbs|string + "g" }}</td>
+            <td>{{ order.protein|string + "g" }}</td>
+            <td>{{ order.restaurant_id }}</td>
+        </tr>
+    {% endfor %}
+</table>
 
 </body>
 </html>
