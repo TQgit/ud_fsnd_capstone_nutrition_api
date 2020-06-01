@@ -6,7 +6,7 @@ from urllib.request import urlopen
 
 AUTH0_DOMAIN = 'fsnd-tq.eu.auth0.com'
 ALGORITHMS = ['RS256']
-API_AUDIENCE = 'fsnd-tq.cafe'
+API_AUDIENCE = 'capstone'
 
 # AuthError Exception
 '''

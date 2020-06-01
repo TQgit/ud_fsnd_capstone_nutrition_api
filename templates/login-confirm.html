@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Confirmation</title>
+    <script>
+        window.onload = function () {
+            const startIndex = location.hash.indexOf('=') + 1;
+            const endIndex = location.hash.indexOf('&');
+            let token = location.hash.substring(startIndex, endIndex);
+
+            document.getElementById('jwt').innerHTML = token;
+            history.replaceState({}, document.title,
+                window.location.pathname + window.location.search);
+        };
+
+        function copyText() {
+            const text = document.getElementById('jwt').innerHTML;
+            let textArea = document.createElement("textarea");
+
+            textArea.style.position = 'fixed';
+            textArea.style.top = 0;
+            textArea.style.left = 0;
+            textArea.style.width = '2em';
+            textArea.style.height = '2em';
+            textArea.style.padding = 0;
+            textArea.style.border = 'none';
+            textArea.style.outline = 'none';
+            textArea.style.boxShadow = 'none';
+            textArea.style.background = 'transparent';
+
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+
+            document.execCommand("copy");
+            alert("JWT copied to clipboard");
+
+            document.body.removeChild(textArea);
+        }
+    </script>
+</head>
+<body>
+
+<h1>Welcome! :)</h1>
+
+<h3>Your JWT is:</h3>
+
+<p id="jwt" style="word-break: break-all; width: 85%;"></p>
+
+<button onclick="copyText()">Copy JWT</button>
+
+</body>
+
+</html>
