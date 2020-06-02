@@ -177,8 +177,19 @@ class NutritionTest(unittest.TestCase):
         self.assertEqual(data['orders'][0]['calories'], 20)
         self.assertTrue(data['success'])
 
-    def test_400_bad_add_restaurant(self):
+    def test_400_bad_post_restaurant(self):
         res = self.client().post('/restaurants',
+                                 json={'name': 'Is this enough?'},
+                                 headers=self.headers)
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 400)
+        self.assertEqual(data['error'], 400)
+        self.assertTrue(data['message'])
+        self.assertFalse(data['success'])
+
+    def test_400_bad_post_order(self):
+        res = self.client().post('/orders',
                                  json={'name': 'Is this enough?'},
                                  headers=self.headers)
         data = json.loads(res.data)
@@ -225,7 +236,7 @@ class NutritionTest(unittest.TestCase):
         self.assertTrue(data['message'])
         self.assertFalse(data['success'])
 
-    def test_403_trusted_editor_not_allowed_delete_resto(self):
+    def test_403_rbac_trusted_editor_not_allowed_delete_resto(self):
         self.headers.update({
             'Authorization': f'bearer {os.environ["DEMO_JWT_TRUSTED_EDITOR"]}'
         })
@@ -237,12 +248,50 @@ class NutritionTest(unittest.TestCase):
         self.assertTrue(data['message'])
         self.assertFalse(data['success'])
 
-    def test_403_contributor_not_allowed_patch_resto(self):
+    def test_403_rbac_trusted_editor_not_allowed_patch_resto(self):
+        self.headers.update({
+            'Authorization': f'bearer {os.environ["DEMO_JWT_TRUSTED_EDITOR"]}'
+        })
+        res = self.client().patch('/restaurants/1', json={'name': 'Try me!'},
+                                  headers=self.headers)
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 403)
+        self.assertEqual(data['error'], 403)
+        self.assertTrue(data['message'])
+        self.assertFalse(data['success'])
+
+    def test_403_rbac_contributor_not_allowed_patch_resto(self):
         self.headers.update({
             'Authorization': f'bearer {os.environ["DEMO_JWT_CONTRIBUTOR"]}'
         })
         res = self.client().patch('/restaurants/1', json={'name': 'Try me!'},
                                   headers=self.headers)
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 403)
+        self.assertEqual(data['error'], 403)
+        self.assertTrue(data['message'])
+        self.assertFalse(data['success'])
+
+    def test_403_rbac_contributor_not_allowed_patch_order(self):
+        self.headers.update({
+            'Authorization': f'bearer {os.environ["DEMO_JWT_CONTRIBUTOR"]}'
+        })
+        res = self.client().patch('/orders/1', json={'name': 'Try me!'},
+                                  headers=self.headers)
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 403)
+        self.assertEqual(data['error'], 403)
+        self.assertTrue(data['message'])
+        self.assertFalse(data['success'])
+
+    def test_403_rbac_contributor_not_allowed_delete_order(self):
+        self.headers.update({
+            'Authorization': f'bearer {os.environ["DEMO_JWT_CONTRIBUTOR"]}'
+        })
+        res = self.client().delete('/orders/1', headers=self.headers)
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 403)
