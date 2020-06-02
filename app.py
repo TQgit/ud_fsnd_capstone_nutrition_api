@@ -230,7 +230,7 @@ def create_app(test_config=None):
         }), AuthError.status_code
 
     # Uncomment this endpoint for a quick way to add dummy data to the db
-    # '''
+    '''
     @app.route('/populate-db')
     def populate_db():
         names = ['KFC', 'Five Guys', 'Starbucks', 'Chipotle']
@@ -267,7 +267,7 @@ def create_app(test_config=None):
                 'success': True,
                 'restaurants': [resto.format() for resto in restaurants]
             })
-    # '''
+    '''
 
     return app
 
