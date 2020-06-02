@@ -1,6 +1,6 @@
 # Capstone Nutrition Facts API & Database
 
-This is my capstone project for the Udacity fullstack nanodegree program. It is a Flask and SQLalchemy server utilizing a postgres database to store nutritional value data of restaurant offerings, it can be run locally and is also deployed using `gunicorn` on Heroku !!!TODO Here. The API can be used to add, retrieve, edit and delete entries in the database utilizing Auth0 for authorization. Details on how to run the app and API usage is provided in the following documentation. 
+This is my capstone project for the Udacity fullstack nanodegree program. It is a Flask and SQLalchemy server utilizing a postgres database to store nutritional value data of restaurant offerings, it can be run locally and is also deployed using `gunicorn` on Heroku [Here.](https://nutrition-fsnd-capstone.herokuapp.com/) The API can be used to add, retrieve, edit and delete entries in the database utilizing Auth0 for authorization. Details on how to run the app and API usage is provided in the following documentation. 
 
 ## Getting Started
 
@@ -44,7 +44,7 @@ This app can be run locally, the backend utilizes http://localhost:5000
 
 #### Heroku Deployment
 
-A live version of the app is deployed on Heroku using gunicorn here: !!!TODO
+A live version of the app is deployed on Heroku using gunicorn here: https://nutrition-fsnd-capstone.herokuapp.com/
 
 #### Authentication
 
@@ -54,7 +54,7 @@ The API uses authentication via Auth0 and utilizes a bearer token in the request
     'Authorization': 'Bearer <JWT>'
 } 
 ```
-Registration on the live Heroku deployment will create an account with the 'Contributor' role permissions and redirect to a page where your JWT token can be copied. Please use http://jwt.io to validate the token has the proper permissions attached, if no permissions are assigned, make sure to validate your email address and then relogin to get an updated token with the permissions. To test out the API with other roles, you can use the demo tokens found in the setup.sh file.
+Registration on the live Heroku deployment will create an account with the `Contributor` role permissions and redirect to a page where your JWT token can be copied. Please use http://jwt.io to validate the token has the proper permissions attached, if no permissions are assigned, make sure to validate your email address and then relogin to get an updated token with the permissions. To test out the API with other roles, you can use the demo tokens found in the setup.sh file.
 
 #### RBAC
 
