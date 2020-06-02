@@ -19,8 +19,6 @@ def setup_db(app, database_path=database_path):
     db.app = app
     db.init_app(app)
 
-    migrate = Migrate(app, db)
-
 
 def setup_test_db(app, database_path=test_database_path):
     app.config["SQLALCHEMY_DATABASE_URI"] = database_path

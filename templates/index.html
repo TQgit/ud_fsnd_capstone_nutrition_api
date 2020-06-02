@@ -7,10 +7,8 @@
         table {
             font-family: arial, sans-serif;
             border-collapse: collapse;
-            width: 75%;
+            width: 100%;
             margin: 10px auto auto;
-            max-height: 250px;
-            overflow: scroll;
         }
 
         td, th {
@@ -20,7 +18,11 @@
         }
 
         tr:nth-child(even) {
-            background-color: azure;
+            background-color: #ebeef4;
+        }
+
+        tr:nth-child(odd) {
+            background-color: #F7F7F7;
         }
     </style>
 </head>
@@ -38,7 +40,8 @@
     <a href={{ login_url }} target="_blank">Login/Register Here.</a>
 </h3>
 
-<h2 style="width: 75%; margin: 30px auto auto">Restaurants</h2>
+<h2 style="width: 75%; margin: 25px auto auto">Restaurants</h2>
+<div style="overflow-y: auto; max-height: 275px; width: 75%; margin: auto">
 <table>
     <tr>
         <th>ID</th>
@@ -53,8 +56,10 @@
         </tr>
     {% endfor %}
 </table>
+</div>
 
-<h2 style="width: 75%; margin: 30px auto auto;">Orders</h2>
+<h2 style="width: 75%; margin: 25px auto auto;">Orders</h2>
+<div style="overflow-y: auto; max-height: 275px; width: 75%; margin: auto auto 25px;">
 <table>
     <tr>
         <th>Order Name</th>
@@ -79,6 +84,7 @@
         </tr>
     {% endfor %}
 </table>
+</div>
 
 </body>
 </html>
